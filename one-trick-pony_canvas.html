@@ -1,0 +1,70 @@
+<!-- 
+    ONE-TRICK PONY
+
+    - this code is for a basic graphic design that does only one style
+    (see screenshots: oneTrickPony1 and 2)
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+  const canvas = document.querySelector('#draw');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  ctx.strokeStyle = 'BADASS';
+  ctx.lineJoin = 'square';
+  ctx.lineCap = 'square';
+
+  // setting initial states:
+  let isDrawing = false;
+  let lastX = 0;  // 0, 677
+  let lastY = 0;  // 0, 677
+  // (0,0) will be the upper-left corner
+
+  function draw(event) {
+    if(!isDrawing) return; 
+    console.log(event);
+    ctx.beginPath();
+
+    // our starting point will always be set by the initial state
+    ctx.moveTo(lastX, lastY);
+
+    // out end point will be where our mouse event lands/stops on the canvas
+    ctx.lineTo(event.offsetX, event.offsetY);
+    ctx.stroke();
+
+    // this changes the design completely
+    // lastX = event.offsetX;
+    // lastY = event.offsetY;
+    
+  }
+
+  // event listeners
+  canvas.addEventListener('mouseup', () => isDrawing = false);
+  canvas.addEventListener('mouseout', () => isDrawing = false); 
+  canvas.addEventListener('mousedown', () => isDrawing = true);
+  canvas.addEventListener('mousemove', draw);
+  
+  
+
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+    background-color: mediumaquamarine;
+    /* this color + red + white === theme */
+  }
+  
+</style>
+
+</body>
+</html>
